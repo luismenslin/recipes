@@ -1,7 +1,8 @@
-package com.example.application.data.service;
+package com.vaadin.application.data.service;
 
-import com.example.application.data.entity.SamplePerson;
+import com.vaadin.application.data.entity.SamplePerson;
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

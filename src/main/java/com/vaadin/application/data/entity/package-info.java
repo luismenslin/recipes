@@ -1,4 +1,4 @@
 @NonNullApi
-package com.example.application.data.entity;
+package com.vaadin.application.data.entity;
 
 import org.springframework.lang.NonNullApi;

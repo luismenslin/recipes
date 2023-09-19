@@ -1,6 +1,6 @@
-package com.example.application.views.personform;
+package com.vaadin.application.views.personform;
 
-import com.example.application.views.MainLayout;
+import com.vaadin.application.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
