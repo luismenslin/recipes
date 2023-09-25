@@ -1,6 +1,6 @@
-package com.vaadin.application.views.helloworld;
+package com.recipes.application.views.helloworld;
 
-import com.vaadin.application.views.MainLayout;
+import com.recipes.application.views.MainLayout;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
