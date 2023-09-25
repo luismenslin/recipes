@@ -1,5 +1,6 @@
-package com.recipes.application.data.model;
+package com.recipes.application.data.model.SamplePerson;
 
+import com.recipes.application.data.model.AbstractEntity;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

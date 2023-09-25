@@ -1,6 +1,6 @@
 package com.recipes.application.data.repository;
 
-import com.recipes.application.data.model.SamplePerson;
+import com.recipes.application.data.model.SamplePerson.SamplePerson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

@@ -1,6 +1,6 @@
 package com.recipes.application.data.service;
 
-import com.recipes.application.data.model.SamplePerson;
+import com.recipes.application.data.model.SamplePerson.SamplePerson;
 import java.util.Optional;
 
 import com.recipes.application.data.repository.SamplePersonRepository;
