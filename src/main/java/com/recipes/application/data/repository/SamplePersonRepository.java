@@ -1,6 +1,6 @@
-package com.vaadin.application.data.service;
+package com.recipes.application.data.repository;
 
-import com.vaadin.application.data.entity.SamplePerson;
+import com.recipes.application.data.model.SamplePerson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

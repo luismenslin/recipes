@@ -1,8 +1,8 @@
-package com.vaadin.application.views;
+package com.recipes.application.views;
 
-import com.vaadin.application.views.about.AboutView;
-import com.vaadin.application.views.helloworld.HelloWorldView;
-import com.vaadin.application.views.personform.PersonFormView;
+import com.recipes.application.views.about.AboutView;
+import com.recipes.application.views.helloworld.HelloWorldView;
+import com.recipes.application.views.personform.PersonFormView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;

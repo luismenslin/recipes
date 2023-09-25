@@ -1,6 +1,6 @@
-package com.vaadin.application.views.about;
+package com.recipes.application.views.about;
 
-import com.vaadin.application.views.MainLayout;
+import com.recipes.application.views.MainLayout;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;

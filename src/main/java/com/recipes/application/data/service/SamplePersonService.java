@@ -1,8 +1,9 @@
-package com.vaadin.application.data.service;
+package com.recipes.application.data.service;
 
-import com.vaadin.application.data.entity.SamplePerson;
+import com.recipes.application.data.model.SamplePerson;
 import java.util.Optional;
 
+import com.recipes.application.data.repository.SamplePersonRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
