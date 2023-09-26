@@ -59,6 +59,7 @@ public class MainLayout extends AppLayout {
         nav.addItem(new SideNavItem("Recipe Form", RecipeFormView.class, LineAwesomeIcon.BOOK_OPEN_SOLID.create()));
 
 
+
         return nav;
     }
 
