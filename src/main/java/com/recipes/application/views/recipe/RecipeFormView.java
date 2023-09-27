@@ -3,6 +3,7 @@ package com.recipes.application.views.recipe;
 import com.recipes.application.views.MainLayout;
 import com.recipes.application.views.step.StepFormView;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.icon.Icon;
@@ -46,7 +47,9 @@ public class RecipeFormView extends Composite<VerticalLayout> {
 
         Button button = new Button("Complete with steps");
             button.setWidth("30%");
-            button.addClickListener(click -> steps.getElement().callJsFunction("click"));
+            button.addClickListener(e -> {
+            UI.getCurrent().navigate(StepFormView.class);
+        });
 
 
         header.add(inputTitle);
