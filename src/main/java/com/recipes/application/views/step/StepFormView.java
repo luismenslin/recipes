@@ -35,8 +35,6 @@ public class StepFormView extends Composite<VerticalLayout> {
         HorizontalLayout footer = new HorizontalLayout();
         footer.setWidth("50%");
 
-
-
         H3 formTitle = new H3("Enter the steps");
             formTitle.setWidthFull();
         TextField firstStep= new TextField("Step:");

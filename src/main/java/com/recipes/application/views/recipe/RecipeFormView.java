@@ -49,7 +49,6 @@ public class RecipeFormView extends Composite<VerticalLayout> {
             UI.getCurrent().navigate(StepFormView.class);
         });
 
-
         header.add(new H3("Recipe Form"));
         verticalBody.add(inputTitle,inputDescription, inputIngredients,inputImagePath);
         body.add(verticalBody);
@@ -60,8 +59,5 @@ public class RecipeFormView extends Composite<VerticalLayout> {
         form.setAlignItems(FlexComponent.Alignment.CENTER);
 
         getContent().add(form);
-
-
-
     }
 }
