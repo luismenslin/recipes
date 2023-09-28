@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface JdbcRepository<T> {
 
-    T findById(int id) throws SQLException;
+    T findById(Integer id) throws SQLException;
 
     List<T> findAll() throws SQLException;
 
@@ -13,5 +13,5 @@ public interface JdbcRepository<T> {
 
     void update(T entity) throws SQLException;
 
-    void delete(int id) throws SQLException;
+    void delete(Integer id) throws SQLException;
 }
