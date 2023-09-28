@@ -10,7 +10,7 @@ public class RecipeJdbcRepository implements JdbcRepository<Recipe> {
 
 
     @Override
-    public Recipe findById(int id) throws SQLException {
+    public Recipe findById(Integer id) throws SQLException {
         return null;
     }
 
@@ -30,7 +30,7 @@ public class RecipeJdbcRepository implements JdbcRepository<Recipe> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
 
     }
 }
