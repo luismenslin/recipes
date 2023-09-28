@@ -16,4 +16,5 @@ public class RecipeService {
     public Recipe getRecipeById(int id) throws SQLException {
         return recipeJdbcRepository.findById(id);
     }
+
 }
