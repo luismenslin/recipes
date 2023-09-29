@@ -33,9 +33,9 @@ public class Recipe extends AbstractEntity {
     @Column(nullable = false)
     private String ingredients;
 
-    @OneToMany
+
     @Column(nullable = false)
-    private List<Step> steps;
+    private String steps;
 
     public Recipe(TextField title, TextArea description, TextArea ingredients, TextField image) {
         this.title = title.getValue();

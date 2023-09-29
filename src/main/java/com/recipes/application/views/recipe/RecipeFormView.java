@@ -1,5 +1,7 @@
 package com.recipes.application.views.recipe;
 
+import com.recipes.application.data.model.Recipe.Recipe;
+import com.recipes.application.data.repository.recipe.RecipeJdbcRepository;
 import com.recipes.application.views.MainLayout;
 import com.recipes.application.views.step.StepFormView;
 import com.vaadin.flow.component.Composite;
@@ -16,11 +18,15 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import java.sql.SQLException;
+
 @PageTitle("Recipe Form")
 @Route(value = "recipe-form", layout = MainLayout.class)
 @Uses(Icon.class)
 public class RecipeFormView extends Composite<VerticalLayout> {
 
+
+    private RecipeJdbcRepository repository = new RecipeJdbcRepository();
     public RecipeFormView () {
         VerticalLayout form = new VerticalLayout();
             form.setWidthFull();
@@ -46,7 +52,13 @@ public class RecipeFormView extends Composite<VerticalLayout> {
         Button button = new Button("Complete with steps");
             button.setWidth("30%");
             button.addClickListener(e -> {
-            UI.getCurrent().navigate(StepFormView.class);
+                try {
+                    repository.save(new Recipe(inputTitle,inputDescription,inputIngredients,inputImagePath));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                UI.getCurrent().navigate(StepFormView.class);
+                //
         });
 
         header.add(new H3("Recipe Form"));

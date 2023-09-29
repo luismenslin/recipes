@@ -1,4 +1,4 @@
-package com.recipes.application.data.service;
+package com.recipes.application.data.repository;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -8,14 +8,12 @@ import java.sql.SQLException;
 
 public class DatabaseManager {
 
-    @Value("${spring.datasource.url}")
-    private static String URL;
 
-    @Value("${spring.datasource.username}")
-    private static String username;
+    private static String URL = "jdbc:mysql://localhost:3306/recipes";
 
-    @Value("${spring.datasource.password}")
-    private static String password;
+    private static String username = "root";
+
+    private static String password = "root";
 
     private static Connection connection;
 
