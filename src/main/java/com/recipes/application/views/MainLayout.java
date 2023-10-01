@@ -3,6 +3,7 @@ package com.recipes.application.views;
 import com.recipes.application.views.about.AboutView;
 import com.recipes.application.views.helloworld.HelloWorldView;
 import com.recipes.application.views.personform.PersonFormView;
+import com.recipes.application.views.recipe.MyRecipesView;
 import com.recipes.application.views.recipe.RecipeFormView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -57,8 +58,7 @@ public class MainLayout extends AppLayout {
         nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
         nav.addItem(new SideNavItem("Person Form", PersonFormView.class, LineAwesomeIcon.USER.create()));
         nav.addItem(new SideNavItem("Recipe Form", RecipeFormView.class, LineAwesomeIcon.BOOK_OPEN_SOLID.create()));
-
-
+        //nav.addItem(new SideNavItem("Minhas Receitas", MyRecipesView.class, LineAwesomeIcon.NOTES_MEDICAL_SOLID.create()));
 
         return nav;
     }
