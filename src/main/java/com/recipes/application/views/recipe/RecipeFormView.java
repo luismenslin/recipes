@@ -25,8 +25,8 @@ import java.sql.SQLException;
 @Uses(Icon.class)
 public class RecipeFormView extends Composite<VerticalLayout> {
 
+    private final RecipeJdbcRepository repository = new RecipeJdbcRepository();
 
-    private RecipeJdbcRepository repository = new RecipeJdbcRepository();
     public RecipeFormView () {
         VerticalLayout form = new VerticalLayout();
             form.setWidthFull();
@@ -58,7 +58,6 @@ public class RecipeFormView extends Composite<VerticalLayout> {
                     throw new RuntimeException(ex);
                 }
                 UI.getCurrent().navigate(StepFormView.class);
-                //
         });
 
         header.add(new H3("Recipe Form"));
