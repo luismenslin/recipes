@@ -23,7 +23,7 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
                 description,
                 image,
                 ingredients,
-                title,
+                title
                 from recipe
                 where id = ?
                 """;
@@ -53,7 +53,7 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
                 description,
                 image,
                 ingredients,
-                title,
+                title
                 from recipe
                     """;
         List<Recipe> RecipeList = new ArrayList<>();
