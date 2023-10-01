@@ -1,82 +1,68 @@
 package com.recipes.application.views;
 
 import com.recipes.application.views.about.AboutView;
-import com.recipes.application.views.helloworld.HelloWorldView;
-import com.recipes.application.views.personform.PersonFormView;
 import com.recipes.application.views.recipe.RecipeFormView;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.orderedlayout.Scroller;
-import com.vaadin.flow.component.sidenav.SideNav;
-import com.vaadin.flow.component.sidenav.SideNavItem;
-import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.vaadin.lineawesome.LineAwesomeIcon;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
 public class MainLayout extends AppLayout {
 
-    private H2 viewTitle;
+    public static class MenuItemInfo extends ListItem {
+
+        public MenuItemInfo(String menuTitle, Component icon, Class<? extends Component> view) {
+            RouterLink link = new RouterLink();
+            link.addClassNames(LumoUtility.Display.FLEX, LumoUtility.Gap.XSMALL, LumoUtility.Height.MEDIUM, LumoUtility.AlignItems.CENTER, LumoUtility.Padding.Horizontal.SMALL,
+                    LumoUtility.TextColor.BODY);
+            link.setRoute(view);
+
+            Span text = new Span(menuTitle);
+            text.addClassNames(LumoUtility.FontWeight.MEDIUM, LumoUtility.FontSize.MEDIUM, LumoUtility.Whitespace.NOWRAP);
+
+            if (icon != null) link.add(icon);
+
+            link.add(text);
+            add(link);
+        }
+    }
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
-        addDrawerContent();
-        addHeaderContent();
+        addToNavbar(createHeaderContent());
     }
 
-    private void addHeaderContent() {
-        DrawerToggle toggle = new DrawerToggle();
-        toggle.setAriaLabel("Menu toggle");
+    private Component createHeaderContent() {
+        Header header = new Header();
+        header.addClassNames(LumoUtility.BoxSizing.BORDER, LumoUtility.Display.FLEX, LumoUtility.FlexDirection.ROW, LumoUtility.Width.FULL);
 
-        viewTitle = new H2();
-        viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
+        Div layout = new Div();
+        layout.addClassNames(LumoUtility.Display.FLEX, LumoUtility.AlignItems.CENTER, LumoUtility.Padding.Horizontal.LARGE);
 
-        addToNavbar(true, toggle, viewTitle);
+        Image logo = new Image("images/recipes-logo.png", "Logo da Recipes");
+        logo.addClassNames(LumoUtility.Padding.MEDIUM, LumoUtility.Height.XLARGE);
+        layout.add(logo);
+
+        Nav nav = new Nav();
+        nav.addClassNames(LumoUtility.Display.FLEX, LumoUtility.Overflow.AUTO, LumoUtility.Padding.Horizontal.MEDIUM, LumoUtility.Padding.Vertical.XSMALL);
+
+        UnorderedList list = new UnorderedList();
+        list.addClassNames(LumoUtility.Display.FLEX, LumoUtility.Gap.SMALL, LumoUtility.ListStyleType.NONE, LumoUtility.Margin.NONE, LumoUtility.Padding.NONE);
+        nav.add(list);
+        layout.add(nav);
+
+        for (MenuItemInfo menuItem : createMenuItems()) list.add(menuItem);
+
+        header.add(layout);
+        return header;
     }
 
-    private void addDrawerContent() {
-        H1 appName = new H1("My App");
-        appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
-        Header header = new Header(appName);
-
-        Scroller scroller = new Scroller(createNavigation());
-
-        addToDrawer(header, scroller, createFooter());
-    }
-
-    private SideNav createNavigation() {
-        SideNav nav = new SideNav();
-
-        nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
-        nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
-        nav.addItem(new SideNavItem("Person Form", PersonFormView.class, LineAwesomeIcon.USER.create()));
-        nav.addItem(new SideNavItem("Recipe Form", RecipeFormView.class, LineAwesomeIcon.BOOK_OPEN_SOLID.create()));
-
-
-
-        return nav;
-    }
-
-    private Footer createFooter() {
-        Footer layout = new Footer();
-
-        return layout;
-    }
-
-    @Override
-    protected void afterNavigation() {
-        super.afterNavigation();
-        viewTitle.setText(getCurrentPageTitle());
-    }
-
-    private String getCurrentPageTitle() {
-        PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value();
+    private MenuItemInfo[] createMenuItems() {
+        return new MenuItemInfo[] {
+            new MenuItemInfo("Recipe Form", LineAwesomeIcon.BOOK_OPEN_SOLID.create(), RecipeFormView.class),
+            new MenuItemInfo("About", LineAwesomeIcon.FILE.create(), AboutView.class)
+        };
     }
 }
