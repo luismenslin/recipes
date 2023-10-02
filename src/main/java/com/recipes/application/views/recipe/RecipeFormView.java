@@ -3,7 +3,6 @@ package com.recipes.application.views.recipe;
 import com.recipes.application.data.model.Recipe.Recipe;
 import com.recipes.application.data.repository.recipe.RecipeJdbcRepository;
 import com.recipes.application.views.MainLayout;
-import com.recipes.application.views.step.StepFormView;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -40,28 +39,30 @@ public class RecipeFormView extends Composite<VerticalLayout> {
         HorizontalLayout footer = new HorizontalLayout();
             footer.setWidth("50%");
 
-        TextField inputTitle = new TextField("Title:");
+        TextField inputTitle = new TextField("Titulo:");
             inputTitle.setWidthFull();
-        TextArea inputDescription = new TextArea("Description:");
+        TextArea inputDescription = new TextArea("Descrição:");
             inputDescription.setWidthFull();
-        TextArea inputIngredients = new TextArea("Ingredients:");
+        TextArea inputIngredients = new TextArea("Ingredientes:");
             inputIngredients.setWidthFull();
-        TextField inputImagePath = new TextField("Image Path:");
+        TextField inputImagePath = new TextField("Caminho da imagem:");
             inputImagePath.setWidthFull();
+        TextArea inputSteps = new TextArea("Passo a passo:");
+            inputSteps.setWidthFull();
 
-        Button button = new Button("Complete with steps");
+        Button button = new Button("Cadastrar receita!");
             button.setWidth("30%");
             button.addClickListener(e -> {
                 try {
-                    repository.save(new Recipe(inputTitle,inputDescription,inputIngredients,inputImagePath));
+                    repository.save(new Recipe(inputTitle,inputDescription,inputIngredients,inputImagePath, inputSteps));
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                UI.getCurrent().navigate(StepFormView.class);
+                UI.getCurrent().navigate(MyRecipesView.class);
         });
 
         header.add(new H3("Recipe Form"));
-        verticalBody.add(inputTitle,inputDescription, inputIngredients,inputImagePath);
+        verticalBody.add(inputTitle,inputDescription, inputIngredients,inputImagePath,inputSteps);
         body.add(verticalBody);
         footer.add(button);
             footer.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
