@@ -172,7 +172,7 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
         }
     }
 
-    public void setFavorite(Long id) throws SQLException {
+    public List<Recipe> findAllFavorites() throws SQLException {
         String sql = """
                 select id,
                 date_created,
@@ -180,23 +180,27 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
                 description,
                 image,
                 ingredients,
-                title
+                title,
+                favorite
                 from recipe
-                where id = ?
-                """;
-        Recipe recipe = null;
+                where favorite = true
+                    """;
+        List<Recipe> RecipeList = new ArrayList<>();
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                recipe = new Recipe();
-                recipe.setDescription(resultSet.getString("description"));
-                recipe.setImage(resultSet.getString("image"));
-                recipe.setIngredients(resultSet.getString("ingredients"));
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Recipe recipe = new Recipe();
+                recipe.setId(rs.getLong("id"));
+                recipe.setDescription(rs.getString("description"));
+                recipe.setImage(rs.getString("image"));
+                recipe.setIngredients(rs.getString("ingredients"));
+                recipe.setTitle(rs.getString("title"));
+                RecipeList.add(recipe);
             }
         } catch (SQLException e) {
             System.out.println("Erro ao consultar receitas");
             e.printStackTrace();
         }
+        return RecipeList;
     }
 }

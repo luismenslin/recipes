@@ -9,6 +9,7 @@ import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -24,6 +25,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 @PageTitle("Minhas Receitas")
 @Route(value = "/", layout = MainLayout.class)
@@ -38,6 +40,11 @@ public class MyRecipesView extends Main implements HasComponents, HasStyle {
         constructUI();
 
         List<Recipe> recipeList = repository.findAll();
+        renderRecipeList(recipeList);
+    }
+
+    private void renderRecipeList(List<Recipe> recipeList) throws SQLException {
+        imageContainer.removeAll();
         for (Recipe recipe : recipeList) {
             imageContainer.add(new ImageListViewCard(
                     recipe.getTitle(),
@@ -62,10 +69,32 @@ public class MyRecipesView extends Main implements HasComponents, HasStyle {
         description.addClassNames(Margin.Bottom.XLARGE, Margin.Top.NONE, TextColor.SECONDARY);
         headerContainer.add(header, description);
 
+        Select<String> sortBy = new Select<>();
+        sortBy.setLabel("Filtrar por");
+        sortBy.setItems("Todos", "Favoritos");
+        sortBy.setValue("Todos");
+        sortBy.addValueChangeListener(event -> {
+            try {
+                String selectedFilter = event.getValue();
+                updateUIBasedOnFilter(selectedFilter);
+            } catch (SQLException e) {
+                throw new RuntimeException("Erro ao filtrar por registros " + e);
+            }
+        });
+
         imageContainer = new OrderedList();
         imageContainer.addClassNames(LumoUtility.Gap.MEDIUM, LumoUtility.Display.GRID, LumoUtility.ListStyleType.NONE, Margin.NONE, Padding.NONE);
 
-        container.add(headerContainer);
+        container.add(headerContainer, sortBy);
         add(container, imageContainer);
+    }
+
+    private void updateUIBasedOnFilter(String selectedFilter) throws SQLException {
+        List<Recipe> recipeList = null;
+
+        if (Objects.equals(selectedFilter, "Todos")) recipeList = repository.findAll();
+        if (Objects.equals(selectedFilter, "Favoritos")) recipeList = repository.findAllFavorites();
+
+        renderRecipeList(recipeList);
     }
 }
