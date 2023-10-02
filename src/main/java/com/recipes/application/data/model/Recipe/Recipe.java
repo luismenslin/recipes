@@ -32,10 +32,11 @@ public class Recipe extends AbstractEntity {
     @Column(nullable = false)
     private String steps;
 
-    public Recipe(TextField title, TextArea description, TextArea ingredients, TextField image) {
+    public Recipe(TextField title, TextArea description, TextArea ingredients, TextField image, TextArea steps) {
         this.title = title.getValue();
         this.description = description.getValue();
         this.ingredients = ingredients.getValue();
         this.image = image.getValue();
+        this.steps = steps.getValue();
     }
 }

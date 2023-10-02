@@ -1,5 +1,6 @@
 package com.recipes.application.data.repository.recipe;
 import com.recipes.application.data.model.Recipe.Recipe;
+import com.recipes.application.data.model.Step.Step;
 import com.recipes.application.data.repository.DatabaseManager;
 import com.recipes.application.data.repository.JdbcRepository;
 import jdk.jshell.spi.ExecutionControl;
@@ -91,7 +92,7 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
         pstm.setString(2, entity.getDescription());
         pstm.setString(3, entity.getImage());
         pstm.setString(4, entity.getIngredients());
-        pstm.setString(5,"steps vazios");
+        pstm.setString(5, entity.getSteps());
         pstm.setDate(6, new Date(entity.getDateCreated().getYear(),
                 entity.getDateCreated().getMonth(),
                 entity.getDateCreated().getDay()));
@@ -118,5 +119,28 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
     @Override
     public void delete(Integer id) throws SQLException, ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Ainda não implementado");
+    }
+
+    public void saveStep(Step entity) throws SQLException {
+
+        try (Connection connection = DatabaseManager.getConnection()) {
+            String sql = """
+                update recipe set
+                    steps = ?
+                    where id = (select id from recipe order by id desc limit 1)
+                """;
+
+            PreparedStatement pstm = connection.prepareStatement(sql);
+
+            pstm.setString(1, entity.getDescription());
+
+            pstm.executeUpdate();
+
+            pstm.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
     }
 }
