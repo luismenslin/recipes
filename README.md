@@ -1,45 +1,24 @@
-# My App
+<div align="center" width="500px" background-color="white">
+  
+  ![Comida caseira Logo laranja](https://github.com/juliacapanema/recipes/assets/102003309/d2ac05e5-f2f9-4cb6-9669-0f2438766731)
+  
+</div>
 
-This project can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+## Sobre o projeto
 
-## Running the application
+O Recipes é um projeto desenvolvido utilizando o framework Vaadin, para praticar os principais conceitos de Programação Orientada a Objetos e integração com banco de dados utilizando o Java JDBC.
 
-The project is a standard Maven project. To run it from the command line,
-type `mvnw` (Windows), or `./mvnw` (Mac & Linux), then open
-http://localhost:8080 in your browser.
+Dessa forma, o projeto é uma pequena aplicação que permite aos usuários registrar suas receitas, efetuar edições nas criações existentes, eliminar registros e marcar suas preferidas para acesso facilitado.
 
-You can also import the project to your IDE of choice as you would with any
-Maven project. Read more on [how to import Vaadin projects to different IDEs](https://vaadin.com/docs/latest/guide/step-by-step/importing) (Eclipse, IntelliJ IDEA, NetBeans, and VS Code).
+## Rodando a aplicação
 
-## Deploying to Production
+O Recipes trata-se de uma aplicação Maven padrão. Para executá-lo é necessário estar rodando um [servidor de banco de dados MySQL](https://dev.mysql.com/downloads/mysql/) e criar um database com o nome de 'recipes':
 
-To create a production build, call `mvnw clean package -Pproduction` (Windows),
-or `./mvnw clean package -Pproduction` (Mac & Linux).
-This will build a JAR file with all the dependencies and front-end resources,
-ready to be deployed. The file can be found in the `target` folder after the build completes.
+```
+CREATE DATABASE recipes;
+```
 
-Once the JAR file is built, you can run it using
-`java -jar target/myapp-1.0-SNAPSHOT.jar`
+Com o banco de dados criado, já é possível compilar e rodar o projeto, a partir da linha de comando, digitando `mvnw` (Windows) ou `./mvnw` (Mac e Linux) e, em seguida, ou então a partir de alguma IDE, para o guia de como rodar o projeto em cada IDE, acesse: [como importar projetos Vaadin para diferentes IDEs](https://vaadin.com/docs/latest/guide/step-by-step/importing) (Eclipse, IntelliJ IDEA, NetBeans e VS Code).
 
-## Project structure
+Após esse procedimento, basta acessar a URL [http://localhost:8080](http://localhost:8080/) em seu navegador e navegar no sistema.
 
-- `MainLayout.java` in `src/main/java` contains the navigation setup (i.e., the
-  side/top bar and the main menu). This setup uses
-  [App Layout](https://vaadin.com/docs/components/app-layout).
-- `views` package in `src/main/java` contains the server-side Java views of your application.
-- `views` folder in `frontend/` contains the client-side JavaScript views of your application.
-- `themes` folder in `frontend/` contains the custom CSS styles.
-
-## Useful links
-
-- Read the documentation at [vaadin.com/docs](https://vaadin.com/docs).
-- Follow the tutorial at [vaadin.com/docs/latest/tutorial/overview](https://vaadin.com/docs/latest/tutorial/overview).
-- Create new projects at [start.vaadin.com](https://start.vaadin.com/).
-- Search UI components and their usage examples at [vaadin.com/docs/latest/components](https://vaadin.com/docs/latest/components).
-- View use case applications that demonstrate Vaadin capabilities at [vaadin.com/examples-and-demos](https://vaadin.com/examples-and-demos).
-- Build any UI without custom CSS by discovering Vaadin's set of [CSS utility classes](https://vaadin.com/docs/styling/lumo/utility-classes). 
-- Find a collection of solutions to common use cases at [cookbook.vaadin.com](https://cookbook.vaadin.com/).
-- Find add-ons at [vaadin.com/directory](https://vaadin.com/directory).
-- Ask questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/vaadin) or join our [Discord channel](https://discord.gg/MYFq5RTbBn).
-- Report issues, create pull requests in [GitHub](https://github.com/vaadin).
