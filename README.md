@@ -1,6 +1,6 @@
 <div align="center" width="500px" background-color="white">
   
-  ![Comida caseira Logo laranja](https://github.com/juliacapanema/recipes/assets/102003309/d2ac05e5-f2f9-4cb6-9669-0f2438766731)
+  ![recipes-logo](https://github.com/juliacapanema/recipes/assets/102003309/b1398843-01d0-4a67-8e19-f7c056727db9)
   
 </div>
 
