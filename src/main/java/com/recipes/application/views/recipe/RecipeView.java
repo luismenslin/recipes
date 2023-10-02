@@ -87,7 +87,8 @@ public class RecipeView extends Composite<VerticalLayout> implements HasUrlParam
         Button saveButton = new Button("Salvar");
         Button editButton = new Button("Editar");
         Button cancelButton = new Button("Cancelar");
-        horizontalLayout.add(saveButton, cancelButton);
+        Button deleteButton = new Button("Deletar");
+        horizontalLayout.add(saveButton, cancelButton, editButton, deleteButton);
 
         saveButton.setVisible(false);
         saveButton.addClickListener(event -> {
@@ -96,9 +97,20 @@ public class RecipeView extends Composite<VerticalLayout> implements HasUrlParam
                 updatedRecipe.setId(recipe.getId());
                 updatedRecipe.setFavorite(recipe.getFavorite());
 
-                UI.getCurrent().getPage().reload();
-
                 repository.update(updatedRecipe);
+
+                UI.getCurrent().getPage().reload();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        deleteButton.addClickListener(event -> {
+            try {
+                Long recipeId = recipe.getId();
+                repository.delete(recipeId);
+
+                UI.getCurrent().navigate(MyRecipesView.class);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

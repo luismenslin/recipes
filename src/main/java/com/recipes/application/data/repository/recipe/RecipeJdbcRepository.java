@@ -146,8 +146,21 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
     }
 
     @Override
-    public void delete(Long id) throws SQLException, ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Ainda não implementado");
+    public void delete(Long id) throws SQLException {
+        String sql = """
+                delete from
+                recipe
+                where id = ?
+                """;
+        try (Connection connection = DatabaseManager.getConnection()) {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setLong(1, id);
+            pstm.execute();
+            pstm.close();
+        } catch (SQLException e) {
+            System.out.println("Erro ao deletar receita");
+            e.printStackTrace();
+        }
     }
 
     public void saveStep(Step entity) throws SQLException {
