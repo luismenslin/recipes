@@ -61,7 +61,7 @@ public class RecipeFormView extends Composite<VerticalLayout> {
                 UI.getCurrent().navigate(MyRecipesView.class);
         });
 
-        header.add(new H3("Recipe Form"));
+        header.add(new H3("Cadastrar receita"));
         verticalBody.add(inputTitle,inputDescription, inputIngredients,inputImagePath,inputSteps);
         body.add(verticalBody);
         footer.add(button);
