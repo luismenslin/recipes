@@ -1,9 +1,7 @@
 package com.recipes.application.data.repository.recipe;
 import com.recipes.application.data.model.Recipe.Recipe;
-import com.recipes.application.data.model.Step.Step;
 import com.recipes.application.data.repository.DatabaseManager;
 import com.recipes.application.data.repository.JdbcRepository;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -160,28 +158,6 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
         } catch (SQLException e) {
             System.out.println("Erro ao deletar receita");
             e.printStackTrace();
-        }
-    }
-
-    public void saveStep(Step entity) throws SQLException {
-
-        try (Connection connection = DatabaseManager.getConnection()) {
-            String sql = """
-                update recipe set
-                    steps = ?
-                    where id = (select id from recipe order by id desc limit 1)
-                """;
-
-            PreparedStatement pstm = connection.prepareStatement(sql);
-
-            pstm.setString(1, entity.getDescription());
-
-            pstm.executeUpdate();
-
-            pstm.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 
