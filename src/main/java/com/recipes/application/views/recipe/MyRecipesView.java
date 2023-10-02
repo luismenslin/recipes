@@ -6,6 +6,8 @@ import com.recipes.application.views.MainLayout;
 import com.recipes.application.views.components.ImageListViewCard;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
@@ -34,6 +36,8 @@ public class MyRecipesView extends Main implements HasComponents, HasStyle {
 
     private OrderedList imageContainer;
 
+    private Button createRecipe;
+
     private RecipeJdbcRepository repository = new RecipeJdbcRepository();
 
     public MyRecipesView() throws SQLException {
@@ -52,6 +56,15 @@ public class MyRecipesView extends Main implements HasComponents, HasStyle {
                     recipe.getDescription(),
                     recipe.getId()
             ));
+        }
+
+        if (recipeList.isEmpty()) {
+            createRecipe = new Button("Cadastre sua primeira receita!");
+            imageContainer.add(createRecipe);
+
+            createRecipe.addClickListener(event -> {
+                UI.getCurrent().navigate(RecipeFormView.class);
+            });
         }
     }
 
