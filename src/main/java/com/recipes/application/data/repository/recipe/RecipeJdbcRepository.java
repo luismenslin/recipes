@@ -24,7 +24,9 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
                 description,
                 image,
                 ingredients,
-                title
+                title,
+                steps,
+                favorite
                 from recipe
                 where id = ?
                 """;
@@ -39,6 +41,8 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
                 recipe.setId(resultSet.getLong("id"));
                 recipe.setImage(resultSet.getString("image"));
                 recipe.setIngredients(resultSet.getString("ingredients"));
+                recipe.setSteps(resultSet.getString("steps"));
+                recipe.setFavorite(resultSet.getBoolean("favorite"));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao consultar receitas");
@@ -114,8 +118,31 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
     }
 
     @Override
-    public void update(Recipe entity) throws SQLException, ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Ainda não implementado");
+    public void update(Recipe entity) throws SQLException {
+        try (Connection connection = DatabaseManager.getConnection()) {
+            String sql = """
+                UPDATE recipe
+                SET title = ?, description = ?, image = ?, ingredients = ?, steps = ?, favorite = ?
+                WHERE id = ?
+            """;
+
+            PreparedStatement pstm = connection.prepareStatement(sql);
+
+            pstm.setString(1, entity.getTitle());
+            pstm.setString(2, entity.getDescription());
+            pstm.setString(3, entity.getImage());
+            pstm.setString(4, entity.getIngredients());
+            pstm.setString(5, entity.getSteps());
+            pstm.setBoolean(6, entity.getFavorite());
+            pstm.setLong(7, entity.getId());
+
+            pstm.executeUpdate();
+
+            pstm.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -143,7 +170,6 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
 
     public void setFavorite(Long id) throws SQLException {
