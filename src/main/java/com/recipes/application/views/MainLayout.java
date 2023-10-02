@@ -1,6 +1,7 @@
 package com.recipes.application.views;
 
 import com.recipes.application.views.about.AboutView;
+import com.recipes.application.views.recipe.MyRecipesView;
 import com.recipes.application.views.recipe.RecipeFormView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -61,8 +62,9 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[] {
-            new MenuItemInfo("Recipe Form", LineAwesomeIcon.BOOK_OPEN_SOLID.create(), RecipeFormView.class),
-            new MenuItemInfo("About", LineAwesomeIcon.FILE.create(), AboutView.class)
+            new MenuItemInfo("Minhas Receitas", LineAwesomeIcon.BOOK_OPEN_SOLID.create(), MyRecipesView.class),
+            new MenuItemInfo("Crie sua receita", LineAwesomeIcon.NOTES_MEDICAL_SOLID.create(), RecipeFormView.class),
+            new MenuItemInfo("Sobre nós", LineAwesomeIcon.FILE.create(), AboutView.class)
         };
     }
 }
