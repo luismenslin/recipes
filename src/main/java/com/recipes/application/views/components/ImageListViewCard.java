@@ -1,5 +1,8 @@
 package com.recipes.application.views.components;
 
+import com.recipes.application.views.recipe.RecipeView;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.*;
 import com.recipes.application.data.repository.recipe.RecipeJdbcRepository;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Div;
@@ -27,12 +30,11 @@ public class ImageListViewCard extends ListItem {
 
     private RecipeJdbcRepository repository = new RecipeJdbcRepository();
 
-    public ImageListViewCard(
-            String text,
-            String url,
-            String description,
-            Boolean useHeartIcon
-    ) {
+    public ImageListViewCard(String text, String url, String description, Long itemId) {
+        addClickListener(event -> {
+            UI.getCurrent().navigate(RecipeView.class, itemId);
+        });
+
         addClassNames(Background.CONTRAST_5, Display.FLEX, FlexDirection.COLUMN, AlignItems.START, Padding.MEDIUM,
                 BorderRadius.LARGE);
 
