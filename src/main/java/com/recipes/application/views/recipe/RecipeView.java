@@ -4,6 +4,8 @@ import com.recipes.application.data.model.Recipe.Recipe;
 import com.recipes.application.data.repository.recipe.RecipeJdbcRepository;
 import com.recipes.application.views.MainLayout;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
@@ -60,18 +62,72 @@ public class RecipeView extends Composite<VerticalLayout> implements HasUrlParam
         description.setWidthFull();
         description.setValue(recipe.getDescription());
         description.setReadOnly(true);
-        TextArea ingredients = new TextArea("Ingredients:");
+        TextArea ingredients = new TextArea("Ingredientes:");
         ingredients.setWidthFull();
         ingredients.setValue(recipe.getDescription());
         ingredients.setReadOnly(true);
+        TextArea steps = new TextArea("Passo a passo:");
+        steps.setWidthFull();
+        steps.setValue(recipe.getSteps());
+        steps.setReadOnly(true);
+        TextField image = new TextField("Link da image:");
+        image.setWidthFull();
+        image.setValue(recipe.getImage());
+        image.setReadOnly(true);
 
-        verticalBody.add(imagePath,title,description,ingredients);
+        verticalBody.add(imagePath, title, description, ingredients, steps, image);
         body.add(verticalBody);
         footer.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
         form.add(body,footer);
         form.setAlignItems(FlexComponent.Alignment.CENTER);
 
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+
+        Button saveButton = new Button("Salvar");
+        Button editButton = new Button("Editar");
+        Button cancelButton = new Button("Cancelar");
+        horizontalLayout.add(saveButton, cancelButton);
+
+        saveButton.setVisible(false);
+        saveButton.addClickListener(event -> {
+            try {
+                Recipe updatedRecipe = new Recipe(title, description, ingredients, image, steps);
+                updatedRecipe.setId(recipe.getId());
+                updatedRecipe.setFavorite(recipe.getFavorite());
+
+                UI.getCurrent().getPage().reload();
+
+                repository.update(updatedRecipe);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        cancelButton.setVisible(false);
+        cancelButton.addClickListener(event -> {
+            title.setReadOnly(true);
+            description.setReadOnly(true);
+            ingredients.setReadOnly(true);
+            steps.setReadOnly(true);
+            image.setReadOnly(true);
+            saveButton.setVisible(false);
+            cancelButton.setVisible(false);
+            editButton.setVisible(true);
+        });
+
+        editButton.addClickListener(event -> {
+            title.setReadOnly(false);
+            description.setReadOnly(false);
+            ingredients.setReadOnly(false);
+            steps.setReadOnly(false);
+            image.setReadOnly(false);
+            saveButton.setVisible(true);
+            editButton.setVisible(false);
+            cancelButton.setVisible(true);
+        });
+
+        form.add(editButton, horizontalLayout);
         getContent().add(form);
     }
 }
