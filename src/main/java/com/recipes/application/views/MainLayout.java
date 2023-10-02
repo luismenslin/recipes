@@ -62,8 +62,8 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[] {
-            new MenuItemInfo("Minhas Receitas", LineAwesomeIcon.NOTES_MEDICAL_SOLID.create(), MyRecipesView.class),
-            new MenuItemInfo("Crie sua receita", LineAwesomeIcon.BOOK_OPEN_SOLID.create(), RecipeFormView.class),
+            new MenuItemInfo("Minhas Receitas", LineAwesomeIcon.BOOK_OPEN_SOLID.create(), MyRecipesView.class),
+            new MenuItemInfo("Crie sua receita", LineAwesomeIcon.NOTES_MEDICAL_SOLID.create(), RecipeFormView.class),
             new MenuItemInfo("Sobre nós", LineAwesomeIcon.FILE.create(), AboutView.class)
         };
     }

@@ -16,7 +16,7 @@ import java.util.List;
 public class RecipeJdbcRepository extends DatabaseManager implements JdbcRepository<Recipe> {
 
     @Override
-    public Recipe findById(Integer id) throws SQLException {
+    public Recipe findById(Long id) throws SQLException {
         String sql = """
                 select id,
                 date_created,
@@ -30,11 +30,13 @@ public class RecipeJdbcRepository extends DatabaseManager implements JdbcReposit
                 """;
         Recipe recipe = null;
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 recipe = new Recipe();
                 recipe.setDescription(resultSet.getString("description"));
+                recipe.setTitle(resultSet.getString("title"));
+                recipe.setId(resultSet.getLong("id"));
                 recipe.setImage(resultSet.getString("image"));
                 recipe.setIngredients(resultSet.getString("ingredients"));
             }

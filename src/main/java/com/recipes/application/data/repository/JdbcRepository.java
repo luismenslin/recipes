@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface JdbcRepository<T> {
 
-    T findById(Integer id) throws SQLException;
+    T findById(Long id) throws SQLException;
 
     List<T> findAll() throws SQLException;
 
