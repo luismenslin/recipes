@@ -1,5 +1,7 @@
 package com.recipes.application.views.components;
 
+import com.recipes.application.data.repository.recipe.RecipeJdbcRepository;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.ListItem;
@@ -16,12 +18,21 @@ import com.vaadin.flow.theme.lumo.LumoUtility.JustifyContent;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
-import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import com.vaadin.flow.theme.lumo.LumoUtility.Width;
+import org.vaadin.lineawesome.LineAwesomeIcon;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ImageListViewCard extends ListItem {
 
-    public ImageListViewCard(String text, String url, String description) {
+    private RecipeJdbcRepository repository = new RecipeJdbcRepository();
+
+    public ImageListViewCard(
+            String text,
+            String url,
+            String description,
+            Boolean useHeartIcon
+    ) {
         addClassNames(Background.CONTRAST_5, Display.FLEX, FlexDirection.COLUMN, AlignItems.START, Padding.MEDIUM,
                 BorderRadius.LARGE);
 
@@ -44,7 +55,29 @@ public class ImageListViewCard extends ListItem {
         Paragraph descriptionView = new Paragraph(description);
         descriptionView.addClassName(Margin.Vertical.MEDIUM);
 
-        add(div, header, descriptionView);
+        Div favoriteButtonDiv;
+        if (useHeartIcon) {
+            favoriteButtonDiv = new Div();
+            Component heartEmpty = LineAwesomeIcon.HEART.create();
+            Component heartSolid = LineAwesomeIcon.HEART_SOLID.create();
+            AtomicReference<Component> actualHeart = new AtomicReference<>(heartEmpty);
+
+            favoriteButtonDiv.add(heartEmpty);
+            favoriteButtonDiv.addClickListener(event -> {
+                if (actualHeart.get() == heartEmpty) {
+                    favoriteButtonDiv.replace(heartEmpty, heartSolid);
+                    actualHeart.set(heartSolid);
+                } else {
+                     favoriteButtonDiv.replace(heartSolid, heartEmpty);
+                    actualHeart.set(heartEmpty);
+                }
+
+            });
+        } else {
+            favoriteButtonDiv = null;
+        }
+
+        add(div, header, descriptionView, favoriteButtonDiv);
 
     }
 }

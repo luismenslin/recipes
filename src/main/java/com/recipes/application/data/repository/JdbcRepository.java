@@ -15,5 +15,5 @@ public interface JdbcRepository<T> {
 
     void update(T entity) throws SQLException, ExecutionControl.NotImplementedException;
 
-    void delete(Integer id) throws SQLException, ExecutionControl.NotImplementedException;
+    void delete(Long id) throws SQLException, ExecutionControl.NotImplementedException;
 }

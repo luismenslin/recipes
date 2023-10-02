@@ -45,7 +45,12 @@ public class MyRecipesView extends Main implements HasComponents, HasStyle {
         List<Recipe> recipeList = repository.findAll();
 
         for (Recipe recipe : recipeList) {
-            imageContainer.add(new ImageListViewCard(recipe.getTitle(), recipe.getImage(), recipe.getDescription()));
+            imageContainer.add(new ImageListViewCard(
+                    recipe.getTitle(),
+                    recipe.getImage(),
+                    recipe.getDescription(),
+                    true
+            ));
         }
     }
 
